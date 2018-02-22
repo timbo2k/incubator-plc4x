@@ -103,7 +103,25 @@ pipeline {
             }
             steps {
                 echo 'Building'
-                sh 'mvn -P${JENKINS_PROFILE} sonar:sonar'
+                withSonarQubeEnv('Apache SonarQube Server') {
+                    sh 'mvn -P${JENKINS_PROFILE} sonar:sonar'
+                }
+            }
+        }
+
+        stage("Quality Gate") {
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                    timeout(time: 1, unit: 'HOURS') {
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
+                    }
+                }
             }
         }
 
