@@ -38,4 +38,6 @@ jobs:
       test10: '%DB811:DBB1000:BYTE[8]'
       test11: '%DB811:DBX268.3:BOOL'
       test12: '%DB811:DBB270:BYTE[8]'
+      test13: '%DB50000:DBW0:INT'
+      test14: '%DB50000:DBW2:INT'
 
