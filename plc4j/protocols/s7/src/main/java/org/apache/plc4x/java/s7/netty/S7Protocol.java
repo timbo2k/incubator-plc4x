@@ -613,9 +613,10 @@ public class S7Protocol extends ChannelDuplexHandler {
                 VarPayloadItem payload = new VarPayloadItem(dataTransportErrorCode, dataTransportSize, data);
                 payloadItems.add(payload);
                 i += S7SizeHelper.getPayloadLength(payload);
-                // It seems that datatype BIT reads an additional byte, if it's not the last.
 
-                if(dataTransportSize.isHasBlankByte() && (userData.readableBytes() > 0)) {
+                // It seems that datatype BIT reads an additional byte, if it's not the last.
+                // Furthermore filling byte only occur on cases where readable bytes are exactly one and evtl. (ToDo: odd)
+                if(dataTransportSize.isHasBlankByte() && length==1 && (userData.readableBytes() > 0)) {
                     userData.readByte();
                     i++;
                 }
