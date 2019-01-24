@@ -27,7 +27,7 @@ import java.util.Map;
 public enum DataTransportSize {
     NULL((byte) 0x00, false, false),
     BIT((byte) 0x03, true, true),
-    BYTE_WORD_DWORD((byte) 0x04, true, false),
+    BYTE_WORD_DWORD((byte) 0x04, true, true),
     INTEGER((byte) 0x05, true, false),
     DINTEGER((byte) 0x06, false, false),
     REAL((byte) 0x07, false, false),
