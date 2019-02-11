@@ -30,8 +30,8 @@ public class ScraperRunner {
     private static final Logger LOGGER = LoggerFactory.getLogger(ScraperRunner.class);
 
     public static void main(String[] args) throws IOException {
-        //ScraperConfiguration configuration = ScraperConfiguration.fromFile("plc4j/utils/scraper/src/test/resources/test.yml");
-        ScraperConfiguration configuration = ScraperConfiguration.fromFile("plc4j/utils/scraper/src/test/resources/example_with_strings.yml");
+        ScraperConfiguration configuration = ScraperConfiguration.fromFile("plc4j/utils/scraper/src/test/resources/test4.yml");
+        //ScraperConfiguration configuration = ScraperConfiguration.fromFile("plc4j/utils/scraper/src/test/resources/example_with_strings.yml");
         Scraper scraper = new Scraper(configuration, (j, a, m) -> LOGGER.info("Results from {}/{}: {}", j, a, m));
 
         scraper.start();

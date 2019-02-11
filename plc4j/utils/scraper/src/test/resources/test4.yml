@@ -1,0 +1,94 @@
+# ----------------------------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# ----------------------------------------------------------------------------
+
+
+
+
+# https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=89070222
+# syntax %DB{BlockNr}.DB{Buchstabe nach Datentyp}{offset}(.{BitOffset}//nur beiBOOL):{Datentyp}
+# Buchstaben zu Datentypen
+# B = Byte und alle Datentypen mit einem Byte
+# W = Word alle Datentypen mit 2 Byte z.B. INT
+# D = Double alle Datentypen mit 4 Byte z.B REAL, DINT
+# X = STRING und BOOL
+# bsp %DB14.DBX15.2:BOOL
+# bsp %DB16.DBX50:STRING
+
+sources:
+  LHL_01: s7://192.168.167.210/1/1
+
+jobs:
+  ############################
+  ### Austauschdatenblöcke ###
+  ############################
+
+  - name: DB811_Maschinenstatus
+    scrapeRate: 1000
+    sources:
+      - LHL_01
+    fields:
+
+      ### Maschinenzustände ###
+      Schaltzustand:            '%DB811.DBB40:USINT'
+      Bedienzustand:            '%DB811.DBB41:USINT'
+      Automatikvorwahl:         '%DB811.DBB42:USINT'
+      Automatikzustand:         '%DB811.DBB43:USINT'
+      Entnahmesystem:           '%DB811.DBB44:USINT'
+      Maschinentest:            '%DB811.DBB45:USINT'
+      BCD:                      '%DB811.DBB46:USINT'
+      Taster:                   '%DB811.DBB47:USINT'
+      Werkzeug:                 '%DB811.DBB48:USINT'
+      Robamat:                  '%DB811.DBB49:USINT'
+      Erhitzer:                 '%DB811.DBB50:USINT'
+      Kuehlung:                 '%DB811.DBB51:USINT'
+      Shuttle_Kern_Vorhanden:   '%DB811.DBB54:USINT'
+      Maschine_Kern_Vorhanden:  '%DB811.DBB55:USINT'
+
+      ### Schrittkette ###
+      #Schrittkette_BIN:      '%DB811.DBD56:DWORD'
+      #PROD_MAIN:             '%DB811.DBW60:USINT'
+      #PROD_SUB1:             '%DB811.DBW61:USINT'
+      #PROD_SUB2:             '%DB811.DBW62:USINT'
+      #PROD_SUB3:             '%DB811.DBW63:USINT'
+      #GS_Fahrt:              '%DB811.DBW64:USINT'
+      #Aufspannen:            '%DB811.DBW65:USINT'
+      #Abspannen:             '%DB811.DBW66:USINT'
+      #Service_Schiessplatte: '%DB811.DBW67:USINT'
+      #Service_Schusssieb:    '%DB811.DBW68:USINT'
+      #Service_Oberteil:      '%DB811.DBW69:USINT'
+
+      ### Kernkasteninformationen ###
+      #Kernkastennahme:       '%DB811.DBX76:STRING[32]'
+      #Kernkastennummer:      '%DB811.DBX110:STRING[32]'
+      #SchusszahlGesamt:       '%DB811.DBD144:UDINT'
+      #SchusszahlNachService:  '%DB811.DBD148:UDINT'
+
+      ### Bedienerinformationen ###
+      #Benutzer:           '%DB811.DBX156:STRING[13]'
+      #Kostenstelle:       '%DB811.DBX172:STRING[4]'
+      #Ablaufdatum:        '%DB811.DBX178:STRING[10]'
+      #Schutzstufe:        '%DB811.DBB190:BYTE'
+      #SichereBetriebsart: '%DB811.DBB191:BYTE'
+      #KeyID:              '%DB811.DBX192:STRING[16]'
+
+
+
+
+
+

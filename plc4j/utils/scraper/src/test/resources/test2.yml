@@ -1,0 +1,56 @@
+# ----------------------------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# ----------------------------------------------------------------------------
+
+
+
+
+# https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=89070222
+# syntax %DB{BlockNr}.DB{Buchstabe nach Datentyp}{offset}(.{BitOffset}//nur beiBOOL):{Datentyp}
+# Buchstaben zu Datentypen
+# B = Byte und alle Datentypen mit einem Byte
+# W = Word alle Datentypen mit 2 Byte z.B. INT
+# D = Double alle Datentypen mit 4 Byte z.B REAL, DINT
+# X = STRING und BOOL
+# bsp %DB14.DBX15.2:BOOL
+# bsp %DB16.DBX50:STRING
+
+sources:
+  LHL_01: s7://192.168.167.210/1/1
+
+jobs:
+  ############################
+  ### Austauschdatenblöcke ###
+  ############################
+
+  - name: DB811_Maschinenstatus
+    scrapeRate: 1000
+    sources:
+      - LHL_01
+    fields:
+
+      ### Maschinenzustände ###
+      Schaltzustand:            '%DB811:DBW40:WORD'
+      Bedienzustand:            '%DB811:DBW42:INT'
+      Automatikvorwahl:         '%DB811:DBD44:DWORD'
+
+
+
+
+
+
